@@ -45,7 +45,7 @@ module.exports = {
     if (!content.startsWith("https://")) return;
     if (!supportedDomains.some(domain => content.includes(domain))) return;
 
-    api.setMessageReaction("🔄", event.messageID, () => {}, true);
+    api.setMessageReaction("⌛️", event.messageID, () => {}, true);
 
     try {
       const API = `https://xsaim8x-xxx-api.onrender.com/api/auto?url=${encodeURIComponent(content)}`;
@@ -64,14 +64,21 @@ module.exports = {
       await fs.ensureDir(path.dirname(filePath));
       fs.writeFileSync(filePath, Buffer.from(buffer));
 
-      api.setMessageReaction("✅", event.messageID, () => {}, true);
+      api.setMessageReaction("✅️", event.messageID, () => {}, true);
       
       const domain = supportedDomains.find(d => content.includes(d)) || "Unknown Platform";
       const platformName = domain.replace(/(\.com|\.app|\.video|\.net)/, "").toUpperCase();
 
       const infoCard = 
-`𝐌𝐞𝐝𝐢𝐚 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐞𝐝 ✅ \nPlatform  : ${platformName}
-`;
+`━━━━━━━━━━━━━━
+𝐌𝐞𝐝𝐢𝐚 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐞𝐝 ✅
+╭─╼━━━━━━━━╾─╮
+│ Title      : ${mediaTitle}
+│ Platform   : ${platformName}
+│ Status     : Success
+╰─━━━━━━━━━╾─╯
+━━━━━━━━━━━━━━
+Made with 💌 by ꫝ𝙻𝚙𝙷𝚊 𝚂ꫝ𝙳𝙸𝙺`;
 
       api.sendMessage(
         { body: infoCard, attachment: fs.createReadStream(filePath) },
@@ -80,7 +87,7 @@ module.exports = {
         event.messageID
       );
     } catch {
-      api.setMessageReaction("⚠️️", event.messageID, () => {}, true);
+      api.setMessageReaction("❌️", event.messageID, () => {}, true);
     }
   }
 };
